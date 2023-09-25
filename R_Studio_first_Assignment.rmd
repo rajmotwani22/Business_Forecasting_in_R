@@ -1,0 +1,98 @@
+---
+title: "R_Studio_first_Assignment"
+date: "9/24/2023"
+output: html_document
+---
+
+
+
+```{r}
+library(readxl)
+Typical_Employee_Survey_Data <- read_excel("C:/Users/Asus/Downloads/Typical_Employee_Survey_Data.xlsx", 
+    col_names = FALSE)
+
+
+#view the data
+View(Typical_Employee_Survey_Data)
+
+
+# Add Header Row
+colnames(Typical_Employee_Survey_Data) <- c("age","gender","job_satisfaction","job_characteristics","experience_in_years","promotion_chances","decision_making_chances","say_in_budget_making","proud_of_current_job_scale","honesty_with_current_organization","relation_with_coworkers_and_colleagues")
+
+
+#Print out the 5-point summary
+min(Typical_Employee_Survey_Data$age)
+quantile(Typical_Employee_Survey_Data$age,0.25)
+median(Typical_Employee_Survey_Data$age)
+quantile(Typical_Employee_Survey_Data$age,0.75)
+max(Typical_Employee_Survey_Data$age)
+min(Typical_Employee_Survey_Data$gender)
+quantile(Typical_Employee_Survey_Data$gender,0.25)
+median(Typical_Employee_Survey_Data$gender)
+quantile(Typical_Employee_Survey_Data$gender,0.75)
+max(Typical_Employee_Survey_Data$age)
+fivenum(Typical_Employee_Survey_Data$age)
+fivenum(Typical_Employee_Survey_Data$gender)
+fivenum(Typical_Employee_Survey_Data$job_satisfaction)
+fivenum(Typical_Employee_Survey_Data$job_characteristics)
+fivenum(Typical_Employee_Survey_Data$experience_in_years)
+fivenum(Typical_Employee_Survey_Data$promotion_chances)
+fivenum(Typical_Employee_Survey_Data$decision_making_chances)
+fivenum(Typical_Employee_Survey_Data$say_in_budget_making)
+fivenum(Typical_Employee_Survey_Data$proud_of_current_job_scale)
+fivenum(Typical_Employee_Survey_Data$honesty_with_current_organization)
+fivenum(Typical_Employee_Survey_Data$relation_with_coworkers_and_colleagues)
+
+
+#boxplot (numerical columns) for each column
+boxplot(Typical_Employee_Survey_Data$age)
+boxplot(Typical_Employee_Survey_Data$gender)
+boxplot(Typical_Employee_Survey_Data$job_satisfaction)
+boxplot(Typical_Employee_Survey_Data$job_characteristics)
+boxplot(Typical_Employee_Survey_Data$experience_in_years)
+boxplot(Typical_Employee_Survey_Data$promotion_chances)
+boxplot(Typical_Employee_Survey_Data$decision_making_chances)
+boxplot(Typical_Employee_Survey_Data$say_in_budget_making)
+boxplot(Typical_Employee_Survey_Data$proud_of_current_job_scale)
+boxplot(Typical_Employee_Survey_Data$honesty_with_current_organization)
+
+
+
+#Convert the columns that need to be converted to Factors
+Typical_Employee_Survey_Data$gender <- as.factor(Typical_Employee_Survey_Data$gender)
+Typical_Employee_Survey_Data$gender <- as.numeric(Typical_Employee_Survey_Data$gender)
+Typical_Employee_Survey_Data$experience_in_years <- as.factor(Typical_Employee_Survey_Data$experience_in_years)
+Typical_Employee_Survey_Data$experience_in_years <- as.numeric(Typical_Employee_Survey_Data$experience_in_years)
+Typical_Employee_Survey_Data$say_in_budget_making <- as.numeric(Typical_Employee_Survey_Data$say_in_budget_making)
+class(Typical_Employee_Survey_Data$gender)
+
+#Plot the right visual for each column 
+#print("Age of people")
+hist(Typical_Employee_Survey_Data$age, main="Age of People", xlab="People", ylab="Age")
+#print("Most of the people are middle aged according to the survey")
+
+#print("Which one of the following job characteristics is most important to you?")
+hist(Typical_Employee_Survey_Data$job_characteristics,ylab="Number of people",xlab="Charcteristics")
+#print("According tp above given graph, the maximum people would prefer to enjoy what they are working on instead of salary and other things")
+
+#print("On the whole, how satisfied arc you with your job?")
+hist(Typical_Employee_Survey_Data$job_satisfaction,breaks=10)
+#print("Most of the people are very satisfied with their job")
+
+plot(x=Typical_Employee_Survey_Data$age,y=Typical_Employee_Survey_Data$experience_in_years,xlab="Age",ylab="Experience")
+hist(Typical_Employee_Survey_Data$decision_making_chances,main="An employees part in decision making")
+hist(Typical_Employee_Survey_Data$say_in_budget_making,main="Say in Budgetary Decision",breaks=4,ylab="Number of People",xlab="Employee's say in budget decision")
+hist(Typical_Employee_Survey_Data$proud_of_current_job_scale,ylab="Number of People",xlab="How proud are you for the current job?")
+hist(Typical_Employee_Survey_Data$honesty_with_current_organization,xlab="Honesty with the current organization",ylab="Number of people")
+pairs(Typical_Employee_Survey_Data)
+
+
+#Plot scatter plots to show few relationships 
+plot(Typical_Employee_Survey_Data$age,Typical_Employee_Survey_Data$relation_with_coworkers_and_colleauges,xlab="Age",ylab="Relation with coworkers",main="Age vs relation with coworkers and Colleauges")
+plot(Typical_Employee_Survey_Data$experience_in_years,Typical_Employee_Survey_Data$promotion_chances,xlab="Experience in years",ylab="Promotion chances")
+plot(Typical_Employee_Survey_Data$gender,Typical_Employee_Survey_Data$relation_with_coworkers_and_colleauges)
+
+
+
+
+```

@@ -1,0 +1,47 @@
+---
+title: "Assignment_Decomposition"
+author: "Raj Motwani"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+
+
+
+```{r}
+
+library(fpp)
+library(fpp2)
+library(readxl)
+google_stock_data_excel <- read_excel("google_stock_data_excel.xlsx")
+View(google_stock_data_excel)
+ts_data <- ts(google_stock_data_excel$Price, start = c(2015, 1),end = c(2023, 3), frequency = 12)
+head(ts_data)
+plot(ts_data)
+"This is the basic time series data plot, just to give the overview on what we are doing"
+stl_decomp <- stl(ts_data,s.window ="periodic")
+"This is a function in R used for seasonal decomposition of time series data. It decomposes a time series into three components: seasonal, trend, and remainder. In this case, periodic is chosen, which means that the seasonal component is estimated using a periodic moving average."
+plot(stl_decomp)
+attributes(stl_decomp)
+"This is plotting the grpah after seasonal decomposition is added"
+
+seasadj(stl_decomp)
+"Printing the seasonal adjustment"
+plot(ts_data)
+lines(seasadj(stl_decomp), col="Red")
+"Plotting the line graph showing the actual and seasonal adjustment"
+f_stl <- forecast(stl_decomp)
+f_stl <- forecast(stl_decomp,h=15)
+"The h parameter specifies the number of future time periods for which you want to generate forecasts. In this case, you are requesting forecasts for the next 15 time periods."
+f_stl
+plot(f_stl)
+
+odecomp_elec <- decompose(ts_data)
+"This is stating that the forecast for 2024 is going in the downward trend in future after the sesonal, trend and residual components"
+# Each one shows different attributes 
+attributes(odecomp_elec)
+seasadj(odecomp_elec)
+
+```
+
